@@ -10,6 +10,7 @@ public class Indicator : MonoBehaviour {
 
     private ARRaycastManager rayManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    public bool OnSurface { get; private set; } = false;
 
     void Start() {
         rayManager = FindObjectOfType<ARRaycastManager>();
@@ -20,11 +21,20 @@ public class Indicator : MonoBehaviour {
     }
 
     void Update() {
-        if(rayManager.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), 
+        if(rayManager.Raycast(
+            new Vector2(Screen.width / 2, Screen.height / 2), 
             hits,
-            TrackableType.PlaneEstimated | TrackableType.PlaneWithinPolygon)) {
+            TrackableType.PlaneWithinPolygon)) {
 
             transform.SetPositionAndRotation(hits[0].pose.position, hits[0].pose.rotation);
+            OnSurface = true;
+            Cursor.SetActive(true);
+
+        } else {
+            OnSurface = false;
+            Cursor.SetActive(false);
         }
+
+
     }
 }
