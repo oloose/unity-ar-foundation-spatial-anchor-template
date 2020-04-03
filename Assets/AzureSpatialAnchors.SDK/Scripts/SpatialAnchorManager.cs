@@ -45,7 +45,7 @@ namespace Microsoft.Azure.SpatialAnchors.Unity
     /// <summary>
     /// A core behavior used to manage Azure Spatial Anchor sessions and queries in a Unity scene.
     /// </summary>
-    public class SpatialAnchorManager : MonoBehaviour
+    public class SpatialAnchorManager : Singleton<SpatialAnchorManager>
     {
         #region Member Variables
         protected bool isSessionStarted = false;
